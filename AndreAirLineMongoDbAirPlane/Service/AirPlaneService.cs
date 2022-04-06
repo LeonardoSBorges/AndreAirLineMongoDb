@@ -30,7 +30,7 @@ namespace AndreAirLineMongoDbAirPlane.Service
 
         public async Task<AirPlane> Post(AirPlaneDTO airPlaneDTO)
         {
-            var searchAirPlane = await _airPlane.FindAsync(airplane => airplane.Enrollment == airPlaneDTO.Enrollment);
+            var searchAirPlane = await _airPlane.Find(airplane => airplane.Enrollment == airPlaneDTO.Enrollment).FirstOrDefaultAsync();
             var airPlane = AirPlane(airPlaneDTO);
             if (searchAirPlane == null)
             {
