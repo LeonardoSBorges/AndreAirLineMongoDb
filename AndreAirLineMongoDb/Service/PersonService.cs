@@ -1,5 +1,7 @@
-﻿using AndreAirLinesWebApplication.Service;
+﻿
+using AndreAirLinesWebApplication.Service;
 using Models;
+using Models.DTO;
 using Models.Util;
 using Models.Validations;
 using MongoDB.Driver;
@@ -12,7 +14,7 @@ namespace AndreAirLineMongoDbPerson.Service
     public class PersonService
     {
         private readonly IMongoCollection<Person> _people;
-        public PersonService(ConnectionMongoDb settings)
+        public PersonService(IConnectionMongoDb settings)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.NameDataBase);
@@ -29,45 +31,67 @@ namespace AndreAirLineMongoDbPerson.Service
             return await _people.Find(searchPerson => searchPerson.Document == document).FirstOrDefaultAsync();
         }
 
-        public async Task<Person> Post(Person person)
+
+        public async Task<Person> Post(PersonDTO personDTO)
+        {
+
+            Person personIn = null;
+            try
+            {
+                if (Documents.IsCpf(personDTO.Document))
+                {
+                    var personExists = await _people.Find(person => person.Document == personDTO.Document).FirstOrDefaultAsync();
+                    personIn = PersonIn(personDTO);
+
+                    if (personExists != null)
+                        return personIn;
+
+                    //personIn = await SearchCep(personIn);
+
+                    _people.InsertOne(personIn);
+                    return personIn;
+                }
+                else
+                {
+                    //return DllNotFoundException(new ApiResponse(404, $"Document not found!. (id ={personIn.Document})"));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string exception = ex.Message;
+            }
+            return personIn;
+        }
+
+        public void Replace(string document, PersonDTO personIn)
+        {
+            _people.ReplaceOne(person => person.Document == document, PersonIn(personIn));
+        }
+
+        public void Delete(string document)
         {
             try
             {
-                if (Documents.IsCpf(person.Document))
-                {
-                    var address = await QueryAddressService.HTTPCorreios(person.Address.Cep);
-
-                    person = address != null ? updateData(address, person) : person;
-
-                    _people.InsertOne(person);
-                    return person;
-                }
-                else
-                    
+                _people.DeleteOne(person => person.Document == document);
             }
-            catch
+            catch(Exception e)
             {
-
+                var exception = e.Message;
             }
-            return null;
         }
 
-      
-
-        public bool Replace(string document, Person person)
+        private async Task<Person> SearchCep(Person person)
         {
-            _people.ReplaceOne()
-
-            return true
-        }
-
-
-
-        private Person updateData(Address address, Person person)
-        {
+            var address = await QueryAddressService.HTTPCorreios(person.Address.Cep);
             address.Number = person.Address.Number;
             person.Address = address;
             return person;
+        }
+
+        private Person PersonIn(PersonDTO personDTO)
+        {
+            return new Person(personDTO.Document, personDTO.Name, personDTO.PhoneNumber, personDTO.Date, personDTO.Email, personDTO.Address);
         }
     }
 }

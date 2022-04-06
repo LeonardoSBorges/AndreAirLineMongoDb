@@ -1,7 +1,9 @@
-﻿using AndreAirLineMongoDbPerson.Service;
+﻿
+using AndreAirLineMongoDbPerson.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Models.DTO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -23,29 +25,29 @@ namespace AndreAirLineMongoDbPerson.Controllers
         {
             return await _personService.Get();
         }
+
         [HttpGet("{id}", Name = "GetPerson")]
         public async Task<Person> Get(string cpf)
         {
             return await _personService.Get(cpf);
         }
 
-    [HttpPost]
-        public ActionResult<Person> Post(Person person)
+        [HttpPost]
+        public async Task<Person> Post(PersonDTO person)
         {
-            _personService.Post(person);
-            return person;
+            return await _personService.Post(person);
         }
         [HttpPut]
-        public IActionResult Put(string cpf, Person person)
+        public IActionResult Put(string Doucument, PersonDTO person)
         {
-            _personService.Replace(cpf, person);
+            _personService.Replace(Doucument, person);
             return NoContent();
         }
 
         [HttpDelete]
-        public IActionResult Delete(string cpf)
+        public IActionResult Delete(string Doucument)
         {
-            _personService.Delete(cpf);
+            _personService.Delete(Doucument);
             return NoContent();
         }
     }

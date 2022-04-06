@@ -1,3 +1,4 @@
+using AndreAirLineMongoDbPerson.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,7 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Models.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +35,14 @@ namespace AndreAirLineMongoDb
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AndreAirLineMongoDb", Version = "v1" });
             });
+
+            services.Configure<ConnectionMongoDb>(
+                 Configuration.GetSection(nameof(ConnectionMongoDb)));
+
+            services.AddSingleton<IConnectionMongoDb>(sp =>
+                sp.GetRequiredService<IOptions<ConnectionMongoDb>>().Value);
+
+            services.AddSingleton<PersonService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

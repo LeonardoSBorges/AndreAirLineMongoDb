@@ -11,13 +11,17 @@ namespace Models
     {
         [JsonProperty("cep")]
         public string Cep{ get; set; }
+
         [JsonProperty("localidade")]
         public string City { get; set; }
         public string Country { get; set; } = "Brasil";
+
         [JsonProperty("logradouro")]
         public string Street { get; set; }
+
         [JsonProperty("bairro")]
         public string District { get; set; }
+
         [JsonProperty("cep")]
         public int Number { get; set; }
 

@@ -1,4 +1,5 @@
 ﻿using Models;
+using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -17,11 +18,11 @@ namespace AndreAirLinesWebApplication.Service
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
-            var response = await client.GetAsync($"ws/{cep}/json/");
+            HttpResponseMessage response = await client.GetAsync($"ws/{cep}/json/");
 
-            Address viaCep = await response.Content.ReadFromJsonAsync<Address>();
-
-            return viaCep ;
+            var viaCep = await response.Content.ReadAsStringAsync();
+            var address = JsonConvert.DeserializeObject<Address>(viaCep);
+            return address;
         }
 
         

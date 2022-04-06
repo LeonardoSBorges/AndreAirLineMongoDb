@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models.Util
 {
-    interface IConnectionMongoDb
+    public interface IConnectionMongoDb
     {
         string NameDataBase { get; set; }
         string CollectionName { get; set; }
