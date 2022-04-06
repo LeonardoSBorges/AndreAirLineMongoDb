@@ -7,15 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndreAirLineMongoDbPerson",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{75998BF8-167A-4FE8-846A-6D0052088369}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndreAirLineMongoDbAirModel", "AndreAirLineMongoDbAirModel\AndreAirLineMongoDbAirModel.csproj", "{625FE030-0B34-447E-B586-AD04EAEB5AD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndreAirLineMongoDbAirPort", "AndreAirLineMongoDbAirModel\AndreAirLineMongoDbAirPort.csproj", "{625FE030-0B34-447E-B586-AD04EAEB5AD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndreAirLineMongoDbAirPlane", "AndreAirLineMongoDbAirPlane\AndreAirLineMongoDbAirPlane.csproj", "{AE8BA017-16F8-45B4-BDC2-8543BC56565B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndreAirLineMongoDbAirPlane", "AndreAirLineMongoDbAirPlane\AndreAirLineMongoDbAirPlane.csproj", "{AE8BA017-16F8-45B4-BDC2-8543BC56565B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndreAirLineMongoDbBasePrice", "AndreAirLineMongoDbBasePrice\AndreAirLineMongoDbBasePrice.csproj", "{82066CB5-C17B-4F7F-BFC1-29788EE9ED69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndreAirLineMongoDbBasePrice", "AndreAirLineMongoDbBasePrice\AndreAirLineMongoDbBasePrice.csproj", "{82066CB5-C17B-4F7F-BFC1-29788EE9ED69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndreAirLineMongoDbTicket", "AndreAirLineMongoDbTicket\AndreAirLineMongoDbTicket.csproj", "{1EC49EE7-9FF1-4E62-8E4B-9714A9C53031}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndreAirLineMongoDbTicket", "AndreAirLineMongoDbTicket\AndreAirLineMongoDbTicket.csproj", "{1EC49EE7-9FF1-4E62-8E4B-9714A9C53031}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndreAirLineMongoDbFlight", "Flight\AndreAirLineMongoDbFlight.csproj", "{1CC00DE3-F4C0-4EA2-AAA1-69838F4F7BA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndreAirLineMongoDbFlight", "Flight\AndreAirLineMongoDbFlight.csproj", "{1CC00DE3-F4C0-4EA2-AAA1-69838F4F7BA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
