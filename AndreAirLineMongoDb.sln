@@ -3,9 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndreAirLineMongoDbPerson", "AndreAirLineMongoDb\AndreAirLineMongoDbPerson.csproj", "{2E128A5D-CB7F-4124-ABC9-545C337E559D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndreAirLineMongoDbPerson", "AndreAirLineMongoDb\AndreAirLineMongoDbPerson.csproj", "{2E128A5D-CB7F-4124-ABC9-545C337E559D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{75998BF8-167A-4FE8-846A-6D0052088369}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{75998BF8-167A-4FE8-846A-6D0052088369}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndreAirLineMongoDbAirModel", "AndreAirLineMongoDbAirModel\AndreAirLineMongoDbAirModel.csproj", "{625FE030-0B34-447E-B586-AD04EAEB5AD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndreAirLineMongoDbAirPlane", "AndreAirLineMongoDbAirPlane\AndreAirLineMongoDbAirPlane.csproj", "{AE8BA017-16F8-45B4-BDC2-8543BC56565B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndreAirLineMongoDbBasePrice", "AndreAirLineMongoDbBasePrice\AndreAirLineMongoDbBasePrice.csproj", "{82066CB5-C17B-4F7F-BFC1-29788EE9ED69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndreAirLineMongoDbTicket", "AndreAirLineMongoDbTicket\AndreAirLineMongoDbTicket.csproj", "{1EC49EE7-9FF1-4E62-8E4B-9714A9C53031}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndreAirLineMongoDbFlight", "Flight\AndreAirLineMongoDbFlight.csproj", "{1CC00DE3-F4C0-4EA2-AAA1-69838F4F7BA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +31,26 @@ Global
 		{75998BF8-167A-4FE8-846A-6D0052088369}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75998BF8-167A-4FE8-846A-6D0052088369}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75998BF8-167A-4FE8-846A-6D0052088369}.Release|Any CPU.Build.0 = Release|Any CPU
+		{625FE030-0B34-447E-B586-AD04EAEB5AD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{625FE030-0B34-447E-B586-AD04EAEB5AD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{625FE030-0B34-447E-B586-AD04EAEB5AD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{625FE030-0B34-447E-B586-AD04EAEB5AD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE8BA017-16F8-45B4-BDC2-8543BC56565B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE8BA017-16F8-45B4-BDC2-8543BC56565B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE8BA017-16F8-45B4-BDC2-8543BC56565B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE8BA017-16F8-45B4-BDC2-8543BC56565B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82066CB5-C17B-4F7F-BFC1-29788EE9ED69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82066CB5-C17B-4F7F-BFC1-29788EE9ED69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82066CB5-C17B-4F7F-BFC1-29788EE9ED69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82066CB5-C17B-4F7F-BFC1-29788EE9ED69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EC49EE7-9FF1-4E62-8E4B-9714A9C53031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EC49EE7-9FF1-4E62-8E4B-9714A9C53031}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EC49EE7-9FF1-4E62-8E4B-9714A9C53031}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EC49EE7-9FF1-4E62-8E4B-9714A9C53031}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CC00DE3-F4C0-4EA2-AAA1-69838F4F7BA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CC00DE3-F4C0-4EA2-AAA1-69838F4F7BA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CC00DE3-F4C0-4EA2-AAA1-69838F4F7BA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CC00DE3-F4C0-4EA2-AAA1-69838F4F7BA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
