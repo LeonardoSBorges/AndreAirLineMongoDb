@@ -22,5 +22,6 @@ namespace Flight
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
     }
 }

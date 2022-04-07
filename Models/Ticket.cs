@@ -14,7 +14,7 @@ namespace Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         public string  Reserve { get; set; }
-        public Flight Flight { get; set; }
+        public Fly Flight { get; set; }
         public Person Person { get; set; }
         public BasePrice BasePrice { get; set; }
         public Class Class { get; set; }
