@@ -21,5 +21,19 @@ namespace Models
         public decimal Price { get; set; }
 
         public DateTime DateAdded { get; set; }
+
+
+        public BasePrice()
+        {
+               
+        }
+
+        public BasePrice(string originId, string destinyId, decimal price, DateTime dateAdded)
+        {
+            OriginId = originId;
+            DestinyId = destinyId;
+            Price = price;
+            DateAdded = dateAdded;
+        }
     }
 }
