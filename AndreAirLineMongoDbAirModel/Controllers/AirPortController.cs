@@ -4,6 +4,7 @@ using AndreAirLineMongoDbAirPort.Service;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.DTO;
+using Models.Util;
 
 namespace AndreAirLineMongoDbAirModel.Controllers
 {
@@ -24,29 +25,39 @@ namespace AndreAirLineMongoDbAirModel.Controllers
             return await _airModelController.Get();
         }
 
-        [HttpGet("{id}", Name = "GetAirPort")]
-        public async Task<AirPort> Get(string ticket)
+        [HttpGet("{iata}", Name = "GetAirPort")]
+        public async Task<AirPort> Get(string iata)
         {
-            return await _airModelController.Get(ticket);
+            return await _airModelController.Get(iata);
         }
 
         [HttpPost]
-        public async Task<AirPort> Post(AirPortDTO airport)
+        public async Task<ActionResult> Post(AirPortDTO airport)
         {
-            return await _airModelController.Post(airport);
+            var result = await _airModelController.Post(airport);
+            if (result == null)
+            {
+                return NotFound(new ApiResponse(400, $"Nao foi possivel inserir o aeroporto no banco de dados, por favor verifique se todos os campos estao preenchidos!"));
+            }
+            
+            return Ok(CreatedAtRoute("GetAirPort", new { iata = airport.Iata }, airport));
         }
 
         [HttpPut]
-        public async Task<AirPort> Put(string id, AirPortDTO airPort)
+        public async Task<ActionResult> Put(AirPortDTO airPort)
         {
-            return await _airModelController.Put(id, airPort);
-            
+            var airport = await _airModelController.Put(airPort);
+            if (airport >= 400)
+            {
+                return NotFound(new ApiResponse(airport));
+            }
+            return Ok(new ApiResponse(airport, $"Sucesso na atualizacao!"));
         }
 
-        [HttpDelete]
-        public IActionResult Delete(string ticket)
+        [HttpDelete("{iata}")]
+        public IActionResult Delete(string iata)
         {
-            _airModelController.Delete(ticket);
+            _airModelController.Delete(iata);
             return NoContent();
         }
 

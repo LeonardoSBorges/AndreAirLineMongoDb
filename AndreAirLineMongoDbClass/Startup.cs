@@ -1,7 +1,7 @@
-using AndreAirLineMongoDbBasePrice.Services;
+
+using AndreAirLineMongoDbClass.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AndreAirLineMongoDbBasePrice
+namespace AndreAirLineMongoDbClass
 {
     public class Startup
     {
@@ -33,16 +33,16 @@ namespace AndreAirLineMongoDbBasePrice
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AndreAirLineMongoDbBasePrice", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AndreAirLineMongoDbClass", Version = "v1" });
             });
 
             services.Configure<ConnectionMongoDb>(
-                 Configuration.GetSection(nameof(ConnectionMongoDb)));
+                Configuration.GetSection(nameof(ConnectionMongoDb)));
 
             services.AddSingleton<IConnectionMongoDb>(sp =>
                 sp.GetRequiredService<IOptions<ConnectionMongoDb>>().Value);
 
-            services.AddSingleton<BasePriceService>();
+            services.AddSingleton<ClassServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,7 +52,7 @@ namespace AndreAirLineMongoDbBasePrice
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AndreAirLineMongoDbBasePrice v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AndreAirLineMongoDbClass v1"));
             }
 
             app.UseHttpsRedirection();

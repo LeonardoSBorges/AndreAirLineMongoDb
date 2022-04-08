@@ -30,29 +30,43 @@ namespace AndreAirLineMongoDbAirPlane.Service
 
         public async Task<AirPlane> Post(AirPlaneDTO airPlaneDTO)
         {
-            var searchAirPlane = await _airPlane.Find(airplane => airplane.Enrollment == airPlaneDTO.Enrollment).FirstOrDefaultAsync();
-            var airPlane = AirPlane(airPlaneDTO);
-            if (searchAirPlane == null)
+            AirPlane airPlane = null;
+            try
             {
-                _airPlane.InsertOne(airPlane);
+                var searchAirPlane = await _airPlane.Find(airplane => airplane.Enrollment == airPlaneDTO.Enrollment).FirstOrDefaultAsync();
+                if (searchAirPlane == null)
+                    _airPlane.InsertOne(new AirPlane(airPlaneDTO.Enrollment, airPlaneDTO.Name, airPlaneDTO.Capacity));
             }
-
+            catch
+            {
+                throw;
+            }
             return airPlane;
         }
-
-        private AirPlane AirPlane(AirPlaneDTO airPlaneDTO)
+        public async Task Put(AirPlaneDTO airPlaneDTO)
         {
-            AirPlane airPlane =  new AirPlane(airPlaneDTO.Enrollment, airPlaneDTO.Name, airPlaneDTO.Capacity) ;
-            return airPlane;
-        }
+            try
+            {
+                var airplaneExists = await _airPlane.Find(airplane => airplane.Enrollment == airPlaneDTO.Enrollment).FirstOrDefaultAsync();
+                if (airplaneExists != null)
+                {
+                    var airplane = new AirPlane(airPlaneDTO.Enrollment, airPlaneDTO.Name, airPlaneDTO.Capacity);
 
-        public void Put(string enrollment, AirPlaneDTO airPlane)
-        {
-            _airPlane.ReplaceOne(airplane => airplane.Enrollment == enrollment, AirPlane(airPlane));
+                    _airPlane.ReplaceOne(airplane => airplane.Enrollment == airPlaneDTO.Enrollment, airplane);
+                }
+                else
+                {
+                    //throw;
+                }
+            }
+            catch
+            {
+                throw;
+            }
         }
         public void Delete(string enrollment)
         {
-             _airPlane.DeleteOneAsync(airPlane => airPlane.Enrollment == enrollment);
+            _airPlane.DeleteOneAsync(airPlane => airPlane.Enrollment == enrollment);
         }
     }
 }

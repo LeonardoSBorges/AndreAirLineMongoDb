@@ -24,6 +24,13 @@ namespace Models.Util
         {
             switch (statusCode)
             {
+                //httpstatus code
+                case 200:
+                    return "A requisicao feita foi um sucesso!";
+                case 204:
+                    return "A atualizacao foi efetuada com sucesso!";
+                case 400:
+                    return "Requisição está com uma sintaxe inválida.";
                 case 401:
                     return "Não autorizado (não autenticado)";
                 case 404:

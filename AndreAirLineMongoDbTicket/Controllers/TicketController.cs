@@ -1,6 +1,9 @@
 ﻿using AndreAirLineMongoDbTicket.Service;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Models;
+using Models.DTO;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AndreAirLineMongoDbTicket.Controllers
 {
@@ -14,10 +17,32 @@ namespace AndreAirLineMongoDbTicket.Controllers
         {
             _ticketService = ticketService;
         }
-        //[HttpGet]
-        //[HttpGet("{id}")]
+
+        [HttpGet]
+        public async Task<List<Ticket>> Get()
+        {
+            return await _ticketService.GetAll();
+
+        }
+
+        [HttpGet("{id}", Name = "GetTicket")]
+        public async Task<Ticket> Get(string id)
+        {
+            return await _ticketService.Get(id);
+        }
         //[HttpPost]
-        //[HttpPut]
+        //public async Task<Ticket> Post(TicketDTO ticketDTO)
+        //{
+        //    Ticket ticket = await _ticketService.Post(ticketDTO);
+        //    return ticket;
+        //}
+
+        ////[HttpPut]
         //[HttpDelete("{id}")]
+        //public IActionResult Delete(string id)
+        //{
+        //    _ticketService.Delete(id);
+        //    return NoContent();
+        //}
     }
 }

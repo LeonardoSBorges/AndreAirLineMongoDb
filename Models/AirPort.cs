@@ -1,6 +1,9 @@
-﻿using MongoDB.Bson;
+﻿using Models.DTO;
+using Models.Services;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.Threading.Tasks;
 
 namespace Models
 {
@@ -23,6 +26,15 @@ namespace Models
             Iata = iata;
             Name = name;
             Address = address;
+        }
+
+
+        public static async Task<AirPort> NewAirPort(AirPortDTO airPortDTO)
+        {
+            Address address = await QueriesAndreAirLines.HttpCorreios(airPortDTO.Address.Cep);
+            address.Number = airPortDTO.Address.Number;
+            var airPort = new AirPort(airPortDTO.Iata, airPortDTO.Name, address);
+            return airPort;
         }
     }
 }

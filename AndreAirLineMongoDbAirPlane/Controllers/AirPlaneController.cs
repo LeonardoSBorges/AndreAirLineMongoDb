@@ -31,6 +31,7 @@ namespace AndreAirLineMongoDbAirPlane.Controllers
             var airplane = await _airPlane.Get(enrollment);
            return airplane;
         }
+
         [HttpPost]
         public async Task<AirPlane> Post(AirPlaneDTO airPlane)
         {
@@ -39,9 +40,9 @@ namespace AndreAirLineMongoDbAirPlane.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put(string enrollment, AirPlaneDTO airPlane)
+        public async Task<IActionResult> Put(AirPlaneDTO airPlane)
         {
-             _airPlane.Put(enrollment, airPlane);
+            await _airPlane.Put(airPlane);
             return NoContent();
         }
 

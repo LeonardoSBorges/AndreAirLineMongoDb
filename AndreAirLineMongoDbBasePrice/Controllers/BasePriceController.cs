@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AndreAirLineMongoDbBasePrice.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.DTO;
@@ -11,9 +12,9 @@ namespace AndreAirLineMongoDbBasePrice.Controllers
     [ApiController]
     public class BasePriceController : ControllerBase
     {
-        private readonly BasePriceController _basePriceController;
+        private readonly BasePriceService _basePriceController;
 
-        public BasePriceController(BasePriceController basePriceController)
+        public BasePriceController(BasePriceService basePriceController)
         {
             _basePriceController = basePriceController;
         }
@@ -21,30 +22,33 @@ namespace AndreAirLineMongoDbBasePrice.Controllers
         [HttpGet]
         public async Task<List<BasePrice>> Get()
         {
-            return await _basePriceController.Get();
+            var result = await _basePriceController.Get();
+            return result;
         }
 
-        [HttpGet("{id}")]
-        public async Task<List<BasePrice>> Get(string id)
+        [HttpGet("{id}", Name = "GetBasePrice")]
+        public async Task<BasePrice> Get(string id)
         {
-            return await _basePriceController.Get(id);
+            var result = await _basePriceController.Get(id);
+            return result;
         }
+
         [HttpPost]
         public async Task<BasePrice> Post(BasePriceDTO basePriceDTO)
         {
             return await _basePriceController.Post(basePriceDTO);
         }
-        [HttpPut]
-        public IActionResult Update(string id, BasePriceDTO basePriceDTO)
-        {
-            _basePriceController.Update(id, basePriceDTO);
-            return NoContent();
-        }
-        [HttpDelete]
-        public IActionResult Delete(string id)
-        {
-            _basePriceController.Delete(id);
-            return NoContent();
-        }
+        //[HttpPut]
+        //public IActionResult Update(string id, BasePriceDTO basePriceDTO)
+        //{
+        //    _basePriceController.Update(id, basePriceDTO);
+        //    return NoContent();
+        //}
+        //[HttpDelete]
+        //public IActionResult Delete(string id)
+        //{
+        //    _basePriceController.Delete(id);
+        //    return NoContent();
+        //}
     }
 }

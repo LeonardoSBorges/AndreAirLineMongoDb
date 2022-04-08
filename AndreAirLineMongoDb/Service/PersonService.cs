@@ -1,7 +1,6 @@
-﻿
-using AndreAirLinesWebApplication.Service;
-using Models;
+﻿using Models;
 using Models.DTO;
+using Models.Services;
 using Models.Util;
 using Models.Validations;
 using MongoDB.Driver;
@@ -46,14 +45,14 @@ namespace AndreAirLineMongoDbPerson.Service
                     if (personExists != null)
                         return personIn;
 
-                    //personIn = await SearchCep(personIn);
+                    personIn = await SearchCep(personIn);
 
                     _people.InsertOne(personIn);
                     return personIn;
                 }
                 else
                 {
-                    //return DllNotFoundException(new ApiResponse(404, $"Document not found!. (id ={personIn.Document})"));
+                    //throw DllNotFoundException(new ApiResponse(404, $"Document not found!. (id ={personIn.Document})"));
                 }
 
             }
@@ -83,7 +82,7 @@ namespace AndreAirLineMongoDbPerson.Service
 
         private async Task<Person> SearchCep(Person person)
         {
-            var address = await QueryAddressService.HTTPCorreios(person.Address.Cep);
+            var address = await QueriesAndreAirLines.HttpCorreios(person.Address.Cep);
             address.Number = person.Address.Number;
             person.Address = address;
             return person;

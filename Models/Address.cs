@@ -21,8 +21,6 @@ namespace Models
 
         [JsonProperty("bairro")]
         public string District { get; set; }
-
-        [JsonProperty("cep")]
         public int Number { get; set; }
 
         public Address()

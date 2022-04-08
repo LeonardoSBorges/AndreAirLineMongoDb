@@ -10,6 +10,15 @@ namespace Models
 {
     public class Class
     {
+        public Class(string description, decimal value)
+        {
+            Description = description;
+            Value = value;
+        }
+        public Class()
+        {
+
+        }
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }

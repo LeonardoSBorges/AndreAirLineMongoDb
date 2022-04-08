@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Models.DTO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -32,10 +33,24 @@ namespace AndreAirLineMongoDbFlight.Controllers
         [HttpPost]
         public async Task<Fly> Post(FlyDTO flyDTO)
         {
-            _valuesService.Post(flyDTO);
-        }
-        //[HttpPut]
-        //[HttpDelete("{id}")]
+           var resultInsertion = await _valuesService.Post(flyDTO);
 
+            return resultInsertion;
+        }
+
+        [HttpPut]
+        public async Task<Fly> Put(string id, FlyDTO flyDTO)
+        {
+            var result = await _valuesService.Update(id, flyDTO);
+
+            return result;
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(string id)
+        {
+            _valuesService.Delete(id);
+            return NoContent();
+        }
     }
 }
