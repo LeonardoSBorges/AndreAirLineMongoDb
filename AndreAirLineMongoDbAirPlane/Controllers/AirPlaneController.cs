@@ -25,10 +25,10 @@ namespace AndreAirLineMongoDbAirPlane.Controllers
             return await _airPlane.Get();
         }
 
-        [HttpGet("{id}")]
-        public async Task<AirPlane> Get(string enrollment)
+        [HttpGet("{iata}")]
+        public async Task<AirPlane> Get(string iata)
         {
-            var airplane = await _airPlane.Get(enrollment);
+            var airplane = await _airPlane.Get(iata);
            return airplane;
         }
 

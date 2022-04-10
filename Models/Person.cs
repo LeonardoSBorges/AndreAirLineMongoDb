@@ -13,6 +13,7 @@ namespace Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
+        
         public string Document { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }

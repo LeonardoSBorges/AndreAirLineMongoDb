@@ -30,12 +30,12 @@ namespace AndreAirLineMongoDbTicket.Controllers
         {
             return await _ticketService.Get(id);
         }
-        //[HttpPost]
-        //public async Task<Ticket> Post(TicketDTO ticketDTO)
-        //{
-        //    Ticket ticket = await _ticketService.Post(ticketDTO);
-        //    return ticket;
-        //}
+        [HttpPost]
+        public async Task<Ticket> Post(TicketDTO ticketDTO)
+        {
+            Ticket ticket = await _ticketService.Post(ticketDTO);
+            return ticket;
+        }
 
         ////[HttpPut]
         //[HttpDelete("{id}")]

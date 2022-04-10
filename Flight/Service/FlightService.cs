@@ -22,19 +22,42 @@ namespace AndreAirLineMongoDbFlight.Service
 
         public async Task<List<Fly>> Get()
         {
-            return await _flight.Find(flight => true).ToListAsync();
+            List<Fly> flights = new List<Fly>();
+            var result = await _flight.Find(flight => true).ToListAsync();
+            foreach (var flight in result) {
+                var value = await Fly.ReturnFlyWithAllValues(flight);
+
+                flights.Add(value);
+            }
+            return flights;
         }
 
         public async Task<Fly> Get(string ticket)
         {
-            return await _flight.Find(flight => flight.Ticket == ticket).FirstOrDefaultAsync();
+            
+            var flight = await _flight.Find(flight => flight.Ticket == ticket).FirstOrDefaultAsync();
+            flight = await Fly.ReturnFlyWithAllValues(flight);
+            return flight;
         }
 
-        public async Task<Fly> Post(FlyDTO flyDTO)
+        public async Task<int> Post(FlyDTO flyDTO)
         {
-            var fly = await NewFly(flyDTO);
-            _flight.InsertOne(fly);
-            return await _flight.Find(searchFly => searchFly == fly).FirstOrDefaultAsync();
+            try
+            {
+                var searchFlySearch = await _flight.Find(searchFly => searchFly.Ticket == flyDTO.Ticket).FirstOrDefaultAsync();
+              
+                if (searchFlySearch != null)
+                    return 404;
+
+                var fly = await NewFly(flyDTO);
+                _flight.InsertOne(fly);
+                return 200;
+            }
+            catch
+            {
+
+            }
+            return 404;
         }
 
         public async Task<Fly> Update(string id, FlyDTO flyDTO)
@@ -49,7 +72,7 @@ namespace AndreAirLineMongoDbFlight.Service
         {
             _flight.DeleteOne(id);
         }
-        public async Task<Fly> NewFly(FlyDTO flyDTO, Fly updateFly = null)
+        public async Task<Fly> NewFly(FlyDTO flyDTO)
         {
             try
             {
@@ -57,6 +80,7 @@ namespace AndreAirLineMongoDbFlight.Service
                 var Destiny = await QueriesAndreAirLines.SearchAiport(flyDTO.Destiny);
                 var Airplane = await QueriesAndreAirLines.SearchAirplane(flyDTO.AirPlane);
                 var resultFly = new Fly(flyDTO.Ticket, Origin, Destiny, Airplane, flyDTO.BoardingTime, flyDTO.DisembarkationTime);
+                
                 return resultFly;
             }
             catch (Exception)

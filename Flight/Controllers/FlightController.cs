@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.DTO;
+using Models.Util;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -31,11 +32,14 @@ namespace AndreAirLineMongoDbFlight.Controllers
         }
 
         [HttpPost]
-        public async Task<Fly> Post(FlyDTO flyDTO)
+        public async Task<ActionResult> Post(FlyDTO flyDTO)
         {
-           var resultInsertion = await _valuesService.Post(flyDTO);
-
-            return resultInsertion;
+            var resultInsertion = await _valuesService.Post(flyDTO);
+            if (resultInsertion >= 400) 
+            {
+                return NotFound(new ApiResponse(resultInsertion, "Ocorreu um erro ao criar a solicitacao de voo, verifique se os campos estao preenchidos corretamente!"));
+            }
+            return Ok(new ApiResponse(resultInsertion, "Voo inserido com sucesso!"));
         }
 
         [HttpPut]

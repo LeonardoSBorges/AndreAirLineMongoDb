@@ -29,39 +29,53 @@ namespace AndreAirLineMongoDbClass.Services
             return resultSearchClasses;
         }
 
-        public async Task<int> Post(ClassDTO newClassDTO)
+        public async Task<ApiResponse> Post(ClassDTO newClassDTO)
         {
             try
             {
-                Class searchClassExists = await _classes.Find(searchClass => searchClass.Description == newClassDTO.Description).FirstOrDefaultAsync();
+                var searchClassExists = await _classes.Find(searchClass => searchClass.Description == newClassDTO.Description).FirstOrDefaultAsync();
                 if (searchClassExists == null) {
                     Class result = new Class(newClassDTO.Description, newClassDTO.Value);
                     _classes.InsertOne(result);
-                    return 200;
+                    return new ApiResponse(204, $"Nova classe inserida!");
                 }
                 else
-                    return 404;
+                    return new ApiResponse(404, $"Nenhum dado encontrado!");
             }
             catch
             {
 
             }
 
-            return 404;
+            return new ApiResponse(400, $"Erro ao tentar se conectar ao banco de dados, por favor contate o suporte de TI!");
             
         }
 
-        public async Task<int> Update(string id, ClassDTO newClassDTO)
+        public async Task<ApiResponse> Update(Class replaceClass)
         {
-            var resultSearchClass = _classes.Find(searchClass => searchClass.Id == id).FirstOrDefaultAsync();
+            try
+            {
+                var resultSearchClass = await _classes.Find(searchClass => searchClass.Id == replaceClass.Id).FirstOrDefaultAsync();
 
-            if (resultSearchClass == null)
-                return 404;
-            return 200;
+                if (resultSearchClass == null)
+                    return new ApiResponse(404, $"Nenhum dado encontrado!");
+
+                _classes.ReplaceOne(searchData => searchData.Id == replaceClass.Id, replaceClass);
+                return new ApiResponse(204, $"Dado atualizado com sucesso!");
+            }
+            catch
+            {
+
+            }
+            return new ApiResponse(400, $"Erro ao tentar se conectar ao banco de dados, por favor contate o suporte de TI!");
         }
-        public void Delete(string id)
+        public ApiResponse Delete(string id)
         {
+            var searchItem = _classes.Find(searchClass => searchClass.Id == id).FirstOrDefault();
+            if (searchItem == null)
+                return new ApiResponse(404, $"Nenhum dado encontrado!");
             _classes.DeleteOne(classes => classes.Id == id);
+            return new ApiResponse(204, $"Dado excluido com sucesso!");
         }
     }
 }

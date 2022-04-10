@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Models;
 using Models.DTO;
 using Models.Util;
 using MongoDB.Driver;
@@ -38,13 +39,42 @@ namespace AndreAirLineMongoDbBasePrice.Services
             return newBasePrice;
         }
 
-        //public bool Update(string id, BasePriceDTO basePriceDTO)
-        //{
-        //    var newBasePrice = BasePriceIn(basePriceDTO);
-        //    _basePrice.ReplaceOne(basePrice => basePrice.Id == id, newBasePrice);
+        public ApiResponse Update(BasePrice basePrice)
+        {
+            try {
 
-        //    return true;
-        //}
+                if (basePrice.OriginId == basePrice.DestinyId)
+                    return new ApiResponse(400, $"Nao foi possivel alterar os destinos pois os que estao sendo atualizados ficaram iguais, por favor verifique e tente novamente!");
+                var basePriceExists = _basePrice.Find(baseprice => baseprice.Id == basePrice.Id).FirstOrDefault();
+                if (basePriceExists == null)
+                    return new ApiResponse(404, $"Nenhum dado foi encontrado!");
+
+                _basePrice.ReplaceOne(baseprice => baseprice.Id == basePrice.Id, basePrice);
+                return new ApiResponse(204, $"Alteracao efetuada com sucesso!");
+            }
+            catch
+            {
+                
+            }
+            return new ApiResponse(400, $"Erro ao tentar se conectar ao banco de dados, por favor contate o suporte de TI!");
+        }
+        public ApiResponse Delete(string id)
+        {
+            try
+            {
+                var searchBasePrice = _basePrice.Find(searchBasePriceIn => searchBasePriceIn.Id == id).FirstOrDefault();
+                if (searchBasePrice == null)
+                    return new ApiResponse(404, $"Nao foi encontrado nenhum item com este Id na base de dados, por favor verifique e tente novamente!");
+                _basePrice.DeleteOne(searchBasePrice => searchBasePrice.Id == id);
+                return new ApiResponse(204, $"Requisicao atendida, o item foi excluido da base de dados!");
+            }
+            catch
+            {
+
+            }
+
+            return null; 
+        }
 
         public async Task<BasePrice> BasePriceIn(BasePriceDTO basePriceDTO)
         {

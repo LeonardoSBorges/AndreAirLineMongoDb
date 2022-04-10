@@ -28,7 +28,7 @@ namespace Models.Util
                 case 200:
                     return "A requisicao feita foi um sucesso!";
                 case 204:
-                    return "A atualizacao foi efetuada com sucesso!";
+                    return "A requisicao foi atendida!";
                 case 400:
                     return "Requisição está com uma sintaxe inválida.";
                 case 401:

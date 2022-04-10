@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using Models.Services;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,19 @@ namespace Models
             AirPlane = airPlane;
             BoardingTime = boardingTime;
             DisembarkationTime = disembarkationTime;
+        }
+
+
+        public static async Task<Fly> ReturnFlyWithAllValues(Fly flight)
+        {
+            AirPort queryOringin = null, queryDestiny = null;
+            AirPlane queryAirplane = null;
+            queryOringin = await QueriesAndreAirLines.SearchAiport(flight.Origin.Iata);
+            queryDestiny = await QueriesAndreAirLines.SearchAiport(flight.Destiny.Iata);
+            queryAirplane = await QueriesAndreAirLines.SearchAirplane(flight.AirPlane.Enrollment);
+            var newFlight = new Fly(flight.Ticket, queryOringin, queryDestiny, queryAirplane, flight.BoardingTime, flight.DisembarkationTime);
+            newFlight.Id = flight.Id;
+            return newFlight;
         }
     }
 }

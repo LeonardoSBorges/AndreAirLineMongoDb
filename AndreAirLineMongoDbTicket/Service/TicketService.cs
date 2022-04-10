@@ -30,26 +30,15 @@ namespace AndreAirLineMongoDbTicket.Service
             return await _ticketService.Find(ticket => ticket.Id == id).FirstOrDefaultAsync();
         }
 
-        //public async Task<Ticket> Post(TicketDTO ticketDTO)
-        //{
-        //    var newTicket = await NewTicket(ticketDTO);
-        //    _ticketService.InsertOne(newTicket);
-        //    return newTicket;
-        //}
+        public async Task<Ticket> Post(TicketDTO ticketDTO)
+        {
+            var newTicket = await Ticket.NewTicket(ticketDTO);
+            _ticketService.InsertOne(newTicket);
+            return newTicket;
+        }
 
         //public async Task<Ticket> Update(string id, TicketDTO ticke
 
-        //public async Task<Ticket> NewTicket(TicketDTO ticketDTO)
-        //{
-        //    var fly = await QueriesAndreAirLines.SearchFly(ticketDTO.FlightId);
-        //    var person = await QueriesAndreAirLines.SearchPerson(ticketDTO.PersonId);
-        //    var basePrice = await QueriesAndreAirLines.SearchBasePrice(ticketDTO.BasePriceId);
-        //    var _class = await QueriesAndreAirLines.SearchClass(ticketDTO.BasePriceId);
-                              
-        //    ticketDTO.TotalValue += basePrice.Price + (basePrice.Price * (_class.Value / 100)); 
-
-        //    var ticket = new Ticket(fly, person, basePrice, _class, ticketDTO.RegisterDate, ticketDTO.TotalValue, ticketDTO.Sale);
-        //    return ticket;
-        //}
+        
     }
 }

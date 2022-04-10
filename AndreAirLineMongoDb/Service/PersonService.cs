@@ -22,7 +22,8 @@ namespace AndreAirLineMongoDbPerson.Service
 
         public async Task<List<Person>> Get()
         {
-            return await _people.Find(searchPerson => true).ToListAsync();
+            var result = await _people.Find(searchPerson => true).ToListAsync();
+            return result;
         }
 
         public async Task<Person> Get(string document)
@@ -31,7 +32,7 @@ namespace AndreAirLineMongoDbPerson.Service
         }
 
 
-        public async Task<Person> Post(PersonDTO personDTO)
+        public async Task<ApiResponse> Post(PersonDTO personDTO)
         {
 
             Person personIn = null;
@@ -43,12 +44,12 @@ namespace AndreAirLineMongoDbPerson.Service
                     personIn = PersonIn(personDTO);
 
                     if (personExists != null)
-                        return personIn;
+                        return new ApiResponse(404, $"O registro ja existe em nossa base de dados!");
 
                     personIn = await SearchCep(personIn);
-
+                    
                     _people.InsertOne(personIn);
-                    return personIn;
+                    return new ApiResponse(204, $"Novo registro foi inserida no banco de dados!");
                 }
                 else
                 {
@@ -60,24 +61,37 @@ namespace AndreAirLineMongoDbPerson.Service
             {
                 string exception = ex.Message;
             }
-            return personIn;
+            return new ApiResponse(404, $"Problemas ao se conectar com o servidor!");
         }
 
-        public void Replace(string document, PersonDTO personIn)
+        public async Task<ApiResponse> Replace(string document, PersonDTO personIn)
         {
+            
+            var searchPerson = await _people.Find(person => person.Document == document).FirstOrDefaultAsync();
+            if (searchPerson == null)
+                return new ApiResponse(404, $"Nenhum registro foi encontrado!");
             _people.ReplaceOne(person => person.Document == document, PersonIn(personIn));
+            return new ApiResponse(204, "Atualizacao de dado foi efetuada!");
         }
 
-        public void Delete(string document)
+        public async Task<ApiResponse> Delete(string document)
         {
             try
             {
-                _people.DeleteOne(person => person.Document == document);
+                var searchPerson = await _people.Find(person => person.Document == document).FirstOrDefaultAsync();
+                if (searchPerson != null)
+                {
+                    var result = _people.DeleteOne(person => person.Document == document);
+                    return new ApiResponse(204, $"o dado foi excluido da base de dados!");
+                }
+                else
+                    return new ApiResponse(404, $"Nenhum dado foi encontrado, por favor verifique se o documento digitado esta correto e tente novamente!");
             }
             catch(Exception e)
             {
                 var exception = e.Message;
             }
+            return new ApiResponse(404);
         }
 
         private async Task<Person> SearchCep(Person person)

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.DTO;
+using Models.Util;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -38,17 +39,30 @@ namespace AndreAirLineMongoDbBasePrice.Controllers
         {
             return await _basePriceController.Post(basePriceDTO);
         }
-        //[HttpPut]
-        //public IActionResult Update(string id, BasePriceDTO basePriceDTO)
-        //{
-        //    _basePriceController.Update(id, basePriceDTO);
-        //    return NoContent();
-        //}
-        //[HttpDelete]
-        //public IActionResult Delete(string id)
-        //{
-        //    _basePriceController.Delete(id);
-        //    return NoContent();
-        //}
+
+        [HttpPut]
+        public IActionResult Update(BasePrice basePrice)
+        {
+            var result = _basePriceController.Update(basePrice);
+            if (result.StatusCode <= 299)
+                return Ok(result);
+            else if (result.StatusCode <= 499)
+                return NotFound(result);
+            else
+                return BadRequest();
+           
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(string id)
+        {
+            var result = _basePriceController.Delete(id);
+            if (result.StatusCode <= 299)
+                return Ok(result);
+            else if (result.StatusCode <= 499)
+                return NotFound(result);
+            else
+                return BadRequest();
+        }
     }
 }

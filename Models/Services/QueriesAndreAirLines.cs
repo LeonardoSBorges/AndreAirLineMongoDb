@@ -45,11 +45,11 @@ namespace Models.Services
             }
         }
 
-        public static async Task<AirPlane> SearchAirplane(string iata)
+        public static async Task<AirPlane> SearchAirplane(string id)
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync("https://localhost:44346/api/AirPlane/" + iata);
+                HttpResponseMessage response = await client.GetAsync("https://localhost:44331/api/AirPlane/" + id);
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
                 var airportJson = JsonConvert.DeserializeObject<AirPlane>(responseBody);

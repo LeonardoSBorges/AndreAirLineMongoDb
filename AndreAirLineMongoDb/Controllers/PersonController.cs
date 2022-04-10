@@ -26,29 +26,39 @@ namespace AndreAirLineMongoDbPerson.Controllers
             return await _personService.Get();
         }
 
-        [HttpGet("{id}", Name = "GetPerson")]
+        [HttpGet]
         public async Task<Person> Get(string cpf)
         {
             return await _personService.Get(cpf);
         }
 
         [HttpPost]
-        public async Task<Person> Post(PersonDTO person)
+        public async Task<ActionResult> Post(PersonDTO person)
         {
-            return await _personService.Post(person);
+            var result = await _personService.Post(person);
+            if (result.StatusCode <= 299)
+                return Ok(result);
+
+            return NotFound(result);
         }
         [HttpPut]
-        public IActionResult Put(string Doucument, PersonDTO person)
+        public async Task<IActionResult> Put(string Doucument, PersonDTO person)
         {
-            _personService.Replace(Doucument, person);
-            return NoContent();
+            var result = await _personService.Replace(Doucument, person);
+            if (result.StatusCode <= 299)
+                return Ok(result);
+
+            return NotFound(result);
         }
 
         [HttpDelete]
-        public IActionResult Delete(string Doucument)
+        public async Task<IActionResult> Delete(string Doucument)
         {
-            _personService.Delete(Doucument);
-            return NoContent();
+            var result = await _personService.Delete(Doucument);
+            if (result.StatusCode <= 299)
+                return Ok(result);
+
+            return NotFound(result);
         }
     }
 }

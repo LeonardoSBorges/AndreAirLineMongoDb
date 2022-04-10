@@ -24,7 +24,7 @@ namespace AndreAirLineMongoDbAirPort.Service
 
         public async Task<List<AirPort>> Get()
         {
-            return await _airPort.Find(airport => true).ToListAsync();
+            return await _airPort.Find(airport => true).ToListAsync(); ;
         }
 
         public async Task<AirPort> Get(string iata)
@@ -41,17 +41,19 @@ namespace AndreAirLineMongoDbAirPort.Service
                 {
                     var searchAirPort = await _airPort.Find(airport => airport.Iata == airPortDTO.Iata).FirstOrDefaultAsync();
 
+                    if (searchAirPort != null)
+                        return null;
+
                     airPort = await AirPort.NewAirPort(airPortDTO);
-                    if (searchAirPort == null)
-                        _airPort.InsertOne(airPort);
+                    _airPort.InsertOne(airPort);
                     return airPort;
                 }
                 else
                     return null;
             }
-            catch(Exception)
+            catch (Exception)
             {
-                
+
             }
 
             return null;

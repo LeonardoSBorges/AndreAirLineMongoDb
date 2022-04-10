@@ -34,27 +34,30 @@ namespace AndreAirLineMongoDbClass.Controller
         [HttpPost]
         public async Task<IActionResult> Post(ClassDTO newClassDTO)
         {
-            var statusResultCode = await _classService.Post(newClassDTO);
-            if(statusResultCode >= 400)
-                return NotFound(new ApiResponse(statusResultCode, "Ocorreu um erro ao criar esta requisicao de nova classe. Verifique se os campos inseridos estao corretos e preenchidos!"));
-            return Ok(new ApiResponse(statusResultCode, "Nova classe foi cadastrada com sucesso!"));
+            var result = await _classService.Post(newClassDTO);
+            if(result.StatusCode >= 400)
+                return NotFound(result);
+            return Ok(result);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(string id, ClassDTO newClassDTO)
+        public async Task<IActionResult> Put(Class newClass)
         {
-            var statusResultCode = await _classService.Update(id, newClassDTO);
-            if (statusResultCode >= 400)
-                return NotFound(new ApiResponse(statusResultCode, "Ocorreu um erro ao tentar atualizar a base de dados, verifique se os dados inseridos estao corretos!"));
-            return Ok(new ApiResponse(statusResultCode, "A classe foi atualizada com sucesso!"));
+            var result = await _classService.Update(newClass);
 
+            if (result.StatusCode <= 299)
+                return Ok(result);
+            return NotFound(result);
         }
 
         [HttpDelete]
         public IActionResult Delete(string id)
         {
-             _classService.Delete(id);
-            return NoContent();
+            var result = _classService.Delete(id);
+            if (result.StatusCode < 299)
+                return Ok(result);
+            else 
+                return NotFound(result);
         }
     }
 }

@@ -36,5 +36,10 @@ namespace Models
             var airPort = new AirPort(airPortDTO.Iata, airPortDTO.Name, address);
             return airPort;
         }
+
+        public override string ToString()
+        {
+            return $"Id: {Id}\nIata: {Iata}\nName: {Name}\nAddress: {Address}";
+        }
     }
 }
