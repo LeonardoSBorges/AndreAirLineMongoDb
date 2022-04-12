@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using AndreAirLineMongoDbAirPort.Service;
 using Microsoft.AspNetCore.Mvc;
-using Models;
-using Models.DTO;
-using Models.Util;
+using ModelShare;
+using ModelShare.DTO;
+using ModelShare.Util;
 
 namespace AndreAirLineMongoDbAirModel.Controllers
 {
@@ -20,13 +20,13 @@ namespace AndreAirLineMongoDbAirModel.Controllers
         }
 
         [HttpGet]
-        public async Task<List<AirPort>> Get()
+        public async Task<List<Airport>> Get()
         {
             return await _airModelController.Get();
         }
 
         [HttpGet("{iata}", Name = "GetAirPort")]
-        public async Task<AirPort> Get(string iata)
+        public async Task<Airport> Get(string iata)
         {
             return await _airModelController.Get(iata);
         }

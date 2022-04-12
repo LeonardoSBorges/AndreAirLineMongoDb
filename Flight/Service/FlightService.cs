@@ -1,10 +1,10 @@
 ﻿using MongoDB.Driver;
-using Models;
-using Models.Util;
+using ModelShare;
+using ModelShare.Util;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Models.DTO;
-using Models.Services;
+using ModelShare.DTO;
+using ModelShare.Services;
 using System;
 
 namespace AndreAirLineMongoDbFlight.Service

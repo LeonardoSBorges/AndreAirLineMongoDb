@@ -1,8 +1,8 @@
-﻿using Models;
-using Models.DTO;
-using Models.Services;
-using Models.Util;
-using Models.Validations;
+﻿using ModelShare;
+using ModelShare.DTO;
+using ModelShare.Services;
+using ModelShare.Util;
+using ModelShare.Validations;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -26,6 +26,7 @@ namespace AndreAirLineMongoDbPerson.Service
             return result;
         }
 
+        
         public async Task<Person> Get(string document)
         {
             return await _people.Find(searchPerson => searchPerson.Document == document).FirstOrDefaultAsync();

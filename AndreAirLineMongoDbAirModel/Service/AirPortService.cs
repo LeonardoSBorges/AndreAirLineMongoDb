@@ -1,10 +1,10 @@
 ﻿
 
 using Microsoft.AspNetCore.Mvc;
-using Models;
-using Models.DTO;
-using Models.Services;
-using Models.Util;
+using ModelShare;
+using ModelShare.DTO;
+using ModelShare.Services;
+using ModelShare.Util;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -14,29 +14,29 @@ namespace AndreAirLineMongoDbAirPort.Service
 {
     public class AirPortService
     {
-        private readonly IMongoCollection<AirPort> _airPort;
+        private readonly IMongoCollection<Airport> _airPort;
         public AirPortService(IConnectionMongoDb settings)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.NameDataBase);
-            _airPort = database.GetCollection<AirPort>(settings.CollectionName);
+            _airPort = database.GetCollection<Airport>(settings.CollectionName);
         }
 
-        public async Task<List<AirPort>> Get()
+        public async Task<List<Airport>> Get()
         {
             return await _airPort.Find(airport => true).ToListAsync(); ;
         }
 
-        public async Task<AirPort> Get(string iata)
+        public async Task<Airport> Get(string iata)
         {
             return await _airPort.Find(airport => airport.Iata == iata).FirstOrDefaultAsync();
         }
 
-        public async Task<AirPort> Post(AirPortDTO airPortDTO)
+        public async Task<Airport> Post(AirPortDTO airPortDTO)
         {
             try
             {
-                AirPort airPort = null;
+                Airport airPort = null;
                 if (AirPortDTO.VerifyExistsData(airPortDTO))
                 {
                     var searchAirPort = await _airPort.Find(airport => airport.Iata == airPortDTO.Iata).FirstOrDefaultAsync();
@@ -44,7 +44,7 @@ namespace AndreAirLineMongoDbAirPort.Service
                     if (searchAirPort != null)
                         return null;
 
-                    airPort = await AirPort.NewAirPort(airPortDTO);
+                    airPort = await Airport.NewAirPort(airPortDTO);
                     _airPort.InsertOne(airPort);
                     return airPort;
                 }
@@ -66,7 +66,7 @@ namespace AndreAirLineMongoDbAirPort.Service
                 var searchAirport = _airPort.Find(airport => airport.Iata == airPortDTO.Iata).FirstOrDefault();
                 if (searchAirport == null)
                     return 404;
-                var newValue = await AirPort.NewAirPort(airPortDTO);
+                var newValue = await Airport.NewAirPort(airPortDTO);
                 newValue.Id = searchAirport.Id;
                 _airPort.ReplaceOne(airport => airport.Iata == airPortDTO.Iata, newValue);
                 return 204;
@@ -82,11 +82,11 @@ namespace AndreAirLineMongoDbAirPort.Service
             _airPort.DeleteOne(airPort => airPort.Iata == Iata);
         }
 
-        public async Task<AirPort> NewAirPort(AirPortDTO airPortDTO)
+        public async Task<Airport> NewAirPort(AirPortDTO airPortDTO)
         {
             Address address = await QueriesAndreAirLines.HttpCorreios(airPortDTO.Address.Cep);
             address.Number = airPortDTO.Address.Number;
-            var airPort = new AirPort(airPortDTO.Iata, airPortDTO.Name, address);
+            var airPort = new Airport(airPortDTO.Iata, airPortDTO.Name, address);
             return airPort;
         }
     }

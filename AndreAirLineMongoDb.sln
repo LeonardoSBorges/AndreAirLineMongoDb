@@ -5,8 +5,6 @@ VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndreAirLineMongoDbPerson", "AndreAirLineMongoDb\AndreAirLineMongoDbPerson.csproj", "{2E128A5D-CB7F-4124-ABC9-545C337E559D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{75998BF8-167A-4FE8-846A-6D0052088369}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndreAirLineMongoDbAirPort", "AndreAirLineMongoDbAirModel\AndreAirLineMongoDbAirPort.csproj", "{625FE030-0B34-447E-B586-AD04EAEB5AD7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndreAirLineMongoDbAirPlane", "AndreAirLineMongoDbAirPlane\AndreAirLineMongoDbAirPlane.csproj", "{AE8BA017-16F8-45B4-BDC2-8543BC56565B}"
@@ -19,7 +17,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndreAirLineMongoDbFly", "F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndreAirLineMongoDbClass", "AndreAirLineMongoDbClass\AndreAirLineMongoDbClass.csproj", "{FDCC7617-67A1-442B-983A-5B6EB8BD6999}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndreAirLineEntityFrameworkAirport", "AndreAirLineEntityFrameworkAirport\AndreAirLineEntityFrameworkAirport.csproj", "{B1F57E41-F763-4FAB-AF45-5D875ECF6C54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndreAirLineEntityFrameworkAirport", "AndreAirLineEntityFrameworkAirport\AndreAirLineEntityFrameworkAirport.csproj", "{B1F57E41-F763-4FAB-AF45-5D875ECF6C54}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndreAirLineDapper", "AndreAirLineEntityDapper\AndreAirLineDapper.csproj", "{19BB8D9B-893D-49A2-B9FB-0B8493279CEE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelShare", "Model2\ModelShare.csproj", "{7F9F8E75-F333-4F83-A5F9-F15F1D30D726}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models2", "Models2\Models2.csproj", "{4BEDD530-192A-475A-9216-99E4E3DAB775}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewAirport", "ViewAirport\ViewAirport.csproj", "{B6332596-1391-42F2-BBAD-7116E77EED94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +37,6 @@ Global
 		{2E128A5D-CB7F-4124-ABC9-545C337E559D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E128A5D-CB7F-4124-ABC9-545C337E559D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E128A5D-CB7F-4124-ABC9-545C337E559D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{75998BF8-167A-4FE8-846A-6D0052088369}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{75998BF8-167A-4FE8-846A-6D0052088369}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{75998BF8-167A-4FE8-846A-6D0052088369}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{75998BF8-167A-4FE8-846A-6D0052088369}.Release|Any CPU.Build.0 = Release|Any CPU
 		{625FE030-0B34-447E-B586-AD04EAEB5AD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{625FE030-0B34-447E-B586-AD04EAEB5AD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{625FE030-0B34-447E-B586-AD04EAEB5AD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,6 +65,22 @@ Global
 		{B1F57E41-F763-4FAB-AF45-5D875ECF6C54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1F57E41-F763-4FAB-AF45-5D875ECF6C54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1F57E41-F763-4FAB-AF45-5D875ECF6C54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19BB8D9B-893D-49A2-B9FB-0B8493279CEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19BB8D9B-893D-49A2-B9FB-0B8493279CEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19BB8D9B-893D-49A2-B9FB-0B8493279CEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19BB8D9B-893D-49A2-B9FB-0B8493279CEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F9F8E75-F333-4F83-A5F9-F15F1D30D726}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F9F8E75-F333-4F83-A5F9-F15F1D30D726}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F9F8E75-F333-4F83-A5F9-F15F1D30D726}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F9F8E75-F333-4F83-A5F9-F15F1D30D726}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BEDD530-192A-475A-9216-99E4E3DAB775}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BEDD530-192A-475A-9216-99E4E3DAB775}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BEDD530-192A-475A-9216-99E4E3DAB775}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BEDD530-192A-475A-9216-99E4E3DAB775}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6332596-1391-42F2-BBAD-7116E77EED94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6332596-1391-42F2-BBAD-7116E77EED94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6332596-1391-42F2-BBAD-7116E77EED94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6332596-1391-42F2-BBAD-7116E77EED94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

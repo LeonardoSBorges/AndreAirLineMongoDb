@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Models;
-using Models.DTO;
-using Models.Services;
-using Models.Util;
+using ModelShare;
+using ModelShare.DTO;
+using ModelShare.Services;
+using ModelShare.Util;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -33,6 +33,8 @@ namespace AndreAirLineMongoDbTicket.Service
         public async Task<Ticket> Post(TicketDTO ticketDTO)
         {
             var newTicket = await Ticket.NewTicket(ticketDTO);
+            newTicket.Reserve = ticketDTO.Reserve;
+
             _ticketService.InsertOne(newTicket);
             return newTicket;
         }

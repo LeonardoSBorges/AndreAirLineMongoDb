@@ -6,8 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-using Models;
-using Models.Util;
+using ModelShare;
+using ModelShare.Util;
 
 namespace AndreAirLineMongoDbTicket
 {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class AirPort
+    public class Airport
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -16,12 +16,12 @@ namespace Models
         public string Name { get; set; }
         public Address Address { get; set; }
 
-        public AirPort()
+        public Airport()
         {
 
         }
 
-        public AirPort(string iata, string name, Address address)
+        public Airport(string iata, string name, Address address)
         {
             Iata = iata;
             Name = name;
@@ -29,11 +29,11 @@ namespace Models
         }
 
 
-        public static async Task<AirPort> NewAirPort(AirPortDTO airPortDTO)
+        public static async Task<Airport> NewAirPort(AirPortDTO airPortDTO)
         {
             Address address = await QueriesAndreAirLines.HttpCorreios(airPortDTO.Address.Cep);
             address.Number = airPortDTO.Address.Number;
-            var airPort = new AirPort(airPortDTO.Iata, airPortDTO.Name, address);
+            var airPort = new Airport(airPortDTO.Iata, airPortDTO.Name, address);
             return airPort;
         }
 

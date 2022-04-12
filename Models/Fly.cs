@@ -15,8 +15,8 @@ namespace Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         public string Ticket { get; set; }
-        public AirPort Origin { get; set; }
-        public AirPort Destiny { get; set; }
+        public Airport Origin { get; set; }
+        public Airport Destiny { get; set; }
         public AirPlane AirPlane { get; set; }
         public DateTime BoardingTime { get; set; }
         public DateTime DisembarkationTime { get; set; }
@@ -26,7 +26,7 @@ namespace Models
 
         }
 
-        public Fly(string ticket, AirPort origin, AirPort destiny, AirPlane airPlane, DateTime boardingTime, DateTime disembarkationTime)
+        public Fly(string ticket, Airport origin, Airport destiny, AirPlane airPlane, DateTime boardingTime, DateTime disembarkationTime)
         {
             Ticket = ticket;
             Origin = origin;
@@ -39,7 +39,7 @@ namespace Models
 
         public static async Task<Fly> ReturnFlyWithAllValues(Fly flight)
         {
-            AirPort queryOringin = null, queryDestiny = null;
+            Airport queryOringin = null, queryDestiny = null;
             AirPlane queryAirplane = null;
             queryOringin = await QueriesAndreAirLines.SearchAiport(flight.Origin.Iata);
             queryDestiny = await QueriesAndreAirLines.SearchAiport(flight.Destiny.Iata);

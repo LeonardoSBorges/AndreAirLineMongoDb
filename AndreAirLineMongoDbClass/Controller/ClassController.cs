@@ -1,9 +1,9 @@
 ﻿using AndreAirLineMongoDbClass.Services;
 using Microsoft.AspNetCore.Mvc;
-using Models;
-using Models.DTO;
-using Models.Services;
-using Models.Util;
+using ModelShare;
+using ModelShare.DTO;
+using ModelShare.Services;
+using ModelShare.Util;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

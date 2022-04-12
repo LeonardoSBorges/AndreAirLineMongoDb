@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Models;
-using Models.DTO;
-using Models.Util;
+using ModelShare;
+using ModelShare.DTO;
+using ModelShare.Util;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;

@@ -2,8 +2,8 @@
 using AndreAirLineMongoDbPerson.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Models;
-using Models.DTO;
+using ModelShare;
+using ModelShare.DTO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,10 +26,10 @@ namespace AndreAirLineMongoDbPerson.Controllers
             return await _personService.Get();
         }
 
-        [HttpGet]
-        public async Task<Person> Get(string cpf)
+        [HttpGet("{document}")]
+        public async Task<Person> Get(string document)
         {
-            return await _personService.Get(cpf);
+            return await _personService.Get(document);
         }
 
         [HttpPost]

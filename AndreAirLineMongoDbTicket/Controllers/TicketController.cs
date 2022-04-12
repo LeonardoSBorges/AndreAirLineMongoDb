@@ -1,7 +1,7 @@
 ﻿using AndreAirLineMongoDbTicket.Service;
 using Microsoft.AspNetCore.Mvc;
-using Models;
-using Models.DTO;
+using ModelShare;
+using ModelShare.DTO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

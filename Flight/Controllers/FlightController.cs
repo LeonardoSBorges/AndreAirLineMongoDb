@@ -1,9 +1,9 @@
 ﻿using AndreAirLineMongoDbFlight.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Models;
-using Models.DTO;
-using Models.Util;
+using ModelShare;
+using ModelShare.DTO;
+using ModelShare.Util;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -25,7 +25,7 @@ namespace AndreAirLineMongoDbFlight.Controllers
             return await _valuesService.Get();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{ticket}")]
         public async Task<Fly> Get(string ticket) {
 
             return await _valuesService.Get(ticket);

@@ -29,14 +29,14 @@ namespace Models.Services
             }
         }
 
-        public static async Task<AirPort> SearchAiport(string id)
+        public static async Task<Airport> SearchAiport(string id)
         {
             try
             {
                 HttpResponseMessage response = await client.GetAsync("https://localhost:44346/api/AirPort/" + id);
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
-                var airportJson = JsonConvert.DeserializeObject<AirPort>(responseBody);
+                var airportJson = JsonConvert.DeserializeObject<Airport>(responseBody);
                 return airportJson;
             }
             catch (Exception)
@@ -62,11 +62,11 @@ namespace Models.Services
             }
         }
 
-        public static async Task<Fly> SearchFly(string id)
+        public static async Task<Fly> SearchFly(string ticket)
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync("https://localhost:44348/api/Flight/" + id);
+                HttpResponseMessage response = await client.GetAsync("https://localhost:44348/api/Flight/" + ticket);
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
                 var flyJson = JsonConvert.DeserializeObject<Fly>(responseBody);
@@ -83,7 +83,7 @@ namespace Models.Services
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync("https://localhost:44348/api/Flight/" + cpf);
+                HttpResponseMessage response = await client.GetAsync("https://localhost:44327/api/Person/" + cpf);
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
                 var personJson = JsonConvert.DeserializeObject<Person>(responseBody);
@@ -118,7 +118,7 @@ namespace Models.Services
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync("");
+                HttpResponseMessage response = await client.GetAsync("https://localhost:44344/apiClass/"+ id);
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
                 var classResponse = JsonConvert.DeserializeObject<Class>(responseBody);
@@ -131,3 +131,15 @@ namespace Models.Services
         }
     }
 }
+
+
+//{
+//    "reserve": "string",
+//  "flightId": "Leo",
+//  "personId": "50593308859",
+//  "basePriceId": "6251a365634eedcba442d4f7",
+//  "classId": "624fa0a33b6840a7a20c266b",
+//  "registerDate": "2022-04-11T16:42:44.554Z",
+//  "totalValue": 0,
+//  "sale": 0
+//}
