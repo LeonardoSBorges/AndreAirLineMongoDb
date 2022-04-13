@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelShare
 {
-    public class Passengers
+    public class Passengers : Person
     {
         public string PassaportCode  { get; set; }
 

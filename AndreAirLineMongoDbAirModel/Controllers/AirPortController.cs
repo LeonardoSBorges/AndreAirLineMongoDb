@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AndreAirLineMongoDbAirPort.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ModelShare;
 using ModelShare.DTO;
@@ -8,8 +9,10 @@ using ModelShare.Util;
 
 namespace AndreAirLineMongoDbAirModel.Controllers
 {
+    [Authorize(Roles = "string")]
     [Route("api/[controller]")]
     [ApiController]
+    
     public class AirPortController : ControllerBase
     {
         private readonly AirPortService _airModelController;
@@ -19,12 +22,14 @@ namespace AndreAirLineMongoDbAirModel.Controllers
             _airModelController = airModelController;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<List<Airport>> Get()
         {
             return await _airModelController.Get();
         }
 
+        [AllowAnonymous]
         [HttpGet("{iata}", Name = "GetAirPort")]
         public async Task<Airport> Get(string iata)
         {

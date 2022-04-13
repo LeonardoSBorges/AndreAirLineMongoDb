@@ -1,7 +1,6 @@
 ﻿using AndreAirLineDapper.Config;
-using AndreAirLineDapper.Models;
 using Dapper;
-using Microsoft.Extensions.Configuration;
+using Models;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;

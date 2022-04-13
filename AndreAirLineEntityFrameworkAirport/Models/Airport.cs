@@ -12,7 +12,12 @@ namespace Models
         public string Iata { get; set; }
         [JsonProperty("name")]
         public string Name { get; set; }
-        [JsonProperty("address")]
-        public Address Address { get; set; }
+        
+        [JsonProperty("continent")]
+        public string Continent { get; set; }
+       
+        [JsonProperty("country")]
+        public string Country { get; set; }
+
     }
 }

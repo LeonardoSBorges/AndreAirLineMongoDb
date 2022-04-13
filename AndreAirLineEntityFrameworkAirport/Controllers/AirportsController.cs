@@ -25,7 +25,7 @@ namespace AndreAirLineEntityFrameworkAirport.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Airport>>> GetAirport()
         {
-            return await _context.Airport.Include(includeAddress => includeAddress.Address).ToListAsync();
+            return await _context.Airport.ToListAsync();
         }
 
         // GET: api/Airports/5
@@ -38,7 +38,7 @@ namespace AndreAirLineEntityFrameworkAirport.Controllers
             {
                 return NotFound();
             }
-            
+
             return airport;
         }
 

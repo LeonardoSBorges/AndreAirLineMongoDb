@@ -10,7 +10,7 @@ namespace AndreAirLineDapper.Models
 {
     public class Address
     {
-        public readonly static string INSERT = "INSERT INTO Address(cep, localidade, country, logradouro, bairro ) VALUES(@cep, @localidade, @logradouro, @bairro)";
+        public readonly static string INSERT = "INSERT INTO Address (cep, localidade, country, logradouro, bairro ) VALUES (@cep, @localidade, @logradouro, @bairro)";
         public readonly static string GETALL = "SELECT cep, localidade, country, logradouro, bairro FROM dbo.Address";
         [Key]
         public int Id { get; set; }

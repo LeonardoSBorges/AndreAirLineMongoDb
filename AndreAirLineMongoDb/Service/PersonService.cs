@@ -1,4 +1,6 @@
-﻿using ModelShare;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using ModelShare;
 using ModelShare.DTO;
 using ModelShare.Services;
 using ModelShare.Util;
@@ -22,8 +24,7 @@ namespace AndreAirLineMongoDbPerson.Service
 
         public async Task<List<Person>> Get()
         {
-            var result = await _people.Find(searchPerson => true).ToListAsync();
-            return result;
+            return await _people.Find(searchPerson => true).ToListAsync();
         }
 
         
@@ -48,7 +49,7 @@ namespace AndreAirLineMongoDbPerson.Service
                         return new ApiResponse(404, $"O registro ja existe em nossa base de dados!");
 
                     personIn = await SearchCep(personIn);
-                    
+
                     _people.InsertOne(personIn);
                     return new ApiResponse(204, $"Novo registro foi inserida no banco de dados!");
                 }
@@ -67,7 +68,7 @@ namespace AndreAirLineMongoDbPerson.Service
 
         public async Task<ApiResponse> Replace(string document, PersonDTO personIn)
         {
-            
+
             var searchPerson = await _people.Find(person => person.Document == document).FirstOrDefaultAsync();
             if (searchPerson == null)
                 return new ApiResponse(404, $"Nenhum registro foi encontrado!");
@@ -88,7 +89,7 @@ namespace AndreAirLineMongoDbPerson.Service
                 else
                     return new ApiResponse(404, $"Nenhum dado foi encontrado, por favor verifique se o documento digitado esta correto e tente novamente!");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 var exception = e.Message;
             }

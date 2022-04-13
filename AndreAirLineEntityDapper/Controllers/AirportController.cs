@@ -2,6 +2,7 @@
 using AndreAirLineDapper.Repository;
 using AndreAirLineDapper.Service;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

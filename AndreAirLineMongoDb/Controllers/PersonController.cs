@@ -1,5 +1,6 @@
 ﻿
 using AndreAirLineMongoDbPerson.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ModelShare;
@@ -19,6 +20,7 @@ namespace AndreAirLineMongoDbPerson.Controllers
         {
             _personService = personService;
         }
+
 
         [HttpGet]
         public async Task<List<Person>> Get()
