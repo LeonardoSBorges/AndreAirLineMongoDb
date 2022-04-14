@@ -48,5 +48,10 @@ namespace ModelShare
             newFlight.Id = flight.Id;
             return newFlight;
         }
+
+        public override string ToString()
+        {
+            return $"{Ticket},{Origin},{Destiny},{AirPlane},{BoardingTime},{DisembarkationTime}";
+        }
     }
 }

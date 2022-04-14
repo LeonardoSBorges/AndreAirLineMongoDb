@@ -48,8 +48,9 @@ namespace AndreAirLineMongoDbFlight.Service
               
                 if (searchFlySearch != null)
                     return 404;
-
                 var fly = await NewFly(flyDTO);
+
+                await PostAndreAirLines.PostLog(new LogDTO(null, null, fly.ToString(), "Create", DateTime.Now));
                 _flight.InsertOne(fly);
                 return 200;
             }
@@ -64,6 +65,8 @@ namespace AndreAirLineMongoDbFlight.Service
         {
             Fly searchFly =  await _flight.Find(searchFly => searchFly.Id == id).FirstOrDefaultAsync();
             var fly = await NewFly(flyDTO);
+
+            await PostAndreAirLines.PostLog(new LogDTO(null, searchFly.ToString(), fly.ToString(), "Update", DateTime.Now));
             _flight.ReplaceOne(searchFly => searchFly.Id == id, fly);
             return fly;
         }
@@ -87,12 +90,6 @@ namespace AndreAirLineMongoDbFlight.Service
             {
                 throw;
             }
-        }
-
-        public bool Post(string ticket, Fly fly)
-        {
-            _flight.ReplaceOne(searchFly => searchFly.Ticket == ticket, fly);
-            return true;
         }
     }
 }

@@ -35,9 +35,12 @@ namespace AndreAirLineMongoDbBasePrice.Controllers
         }
 
         [HttpPost]
-        public async Task<BasePrice> Post(BasePriceDTO basePriceDTO)
+        public async Task<ActionResult> Post(BasePriceDTO basePriceDTO)
         {
-            return await _basePriceController.Post(basePriceDTO);
+            var result = await _basePriceController.Post(basePriceDTO);
+            if (result == 200)
+                return Ok("Novo preco base inserido!");
+            return NoContent();
         }
 
         [HttpPut]

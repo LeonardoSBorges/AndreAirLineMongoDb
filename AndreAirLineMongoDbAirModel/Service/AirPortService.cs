@@ -45,6 +45,8 @@ namespace AndreAirLineMongoDbAirPort.Service
                         return null;
 
                     airPort = await Airport.NewAirPort(airPortDTO);
+
+                    await PostAndreAirLines.PostLog(new LogDTO(null, null, airPort.ToString(), "Create", DateTime.Now));
                     _airPort.InsertOne(airPort);
                     return airPort;
                 }
@@ -68,6 +70,8 @@ namespace AndreAirLineMongoDbAirPort.Service
                     return 404;
                 var newValue = await Airport.NewAirPort(airPortDTO);
                 newValue.Id = searchAirport.Id;
+
+                await PostAndreAirLines.PostLog(new LogDTO(null, searchAirport.ToString(), newValue.ToString(), "Create", DateTime.Now));
                 _airPort.ReplaceOne(airport => airport.Iata == airPortDTO.Iata, newValue);
                 return 204;
             }
@@ -80,6 +84,7 @@ namespace AndreAirLineMongoDbAirPort.Service
         public void Delete(string Iata)
         {
             _airPort.DeleteOne(airPort => airPort.Iata == Iata);
+
         }
 
         public async Task<Airport> NewAirPort(AirPortDTO airPortDTO)

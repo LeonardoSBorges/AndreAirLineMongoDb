@@ -35,5 +35,10 @@ namespace ModelShare
             Price = price;
             DateAdded = dateAdded;
         }
+
+        public override string ToString()
+        {
+            return $"{OriginId},{DestinyId},{Price},{DateAdded}";
+        }
     }
 }

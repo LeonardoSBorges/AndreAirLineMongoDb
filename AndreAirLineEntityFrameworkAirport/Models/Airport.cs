@@ -19,5 +19,10 @@ namespace Models
         [JsonProperty("country")]
         public string Country { get; set; }
 
+        public override string ToString()
+        {
+            return $"{Iata},{Name},{Continent},{Country}";
+        }
+
     }
 }

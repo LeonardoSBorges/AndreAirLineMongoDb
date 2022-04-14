@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ModelShare;
 using ModelShare.DTO;
+using ModelShare.Services;
 using ModelShare.Util;
 using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -31,12 +33,16 @@ namespace AndreAirLineMongoDbBasePrice.Services
             return result;
         }
 
-        public async Task<BasePrice> Post(BasePriceDTO basePriceDTO)
+        public async Task<int> Post(BasePriceDTO basePriceDTO)
         {
+            var searchBasePrice = await _basePrice.Find(basePrice => basePrice.OriginId == basePriceDTO.OriginId && basePrice.DestinyId == basePriceDTO.DestinyId).FirstOrDefaultAsync();
+            if (searchBasePrice != null)
+                return 400;
             var newBasePrice = await BasePriceIn(basePriceDTO);
-             _basePrice.InsertOne(newBasePrice);
+             await _basePrice.InsertOneAsync(newBasePrice);
 
-            return newBasePrice;
+            await PostAndreAirLines.PostLog(new LogDTO(null, null, newBasePrice.ToString(), "Create", DateTime.Now));
+            return 200;
         }
 
         public ApiResponse Update(BasePrice basePrice)
@@ -49,6 +55,7 @@ namespace AndreAirLineMongoDbBasePrice.Services
                 if (basePriceExists == null)
                     return new ApiResponse(404, $"Nenhum dado foi encontrado!");
 
+                PostAndreAirLines.PostLog(new LogDTO(null, basePriceExists.ToString(), basePrice.ToString(), "Update", DateTime.Now));
                 _basePrice.ReplaceOne(baseprice => baseprice.Id == basePrice.Id, basePrice);
                 return new ApiResponse(204, $"Alteracao efetuada com sucesso!");
             }

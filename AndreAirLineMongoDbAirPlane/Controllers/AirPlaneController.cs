@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ModelShare;
 using ModelShare.DTO;
+using ModelShare.Services;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -36,6 +38,7 @@ namespace AndreAirLineMongoDbAirPlane.Controllers
         public async Task<ActionResult> Post(AirPlaneDTO airPlane)
         {
             var result = await _airPlane.Post(airPlane);
+            await PostAndreAirLines.PostLog(new LogDTO(null, null, airPlane.ToString(), "Create", DateTime.Now));
             if (result == 400)
                 return BadRequest();
             return Ok();

@@ -40,5 +40,10 @@ namespace ModelShare
             District = district;
             Number = number;
         }
+
+        public override string ToString()
+        {
+            return $"{Cep},{City},{Street},{District}, {Number}";
+        }
     }
 }

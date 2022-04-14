@@ -50,6 +50,7 @@ namespace AndreAirLineMongoDbPerson.Service
 
                     personIn = await SearchCep(personIn);
 
+                    await PostAndreAirLines.PostLog(new LogDTO(null, null, personIn.ToString(), "Create", DateTime.Now));
                     _people.InsertOne(personIn);
                     return new ApiResponse(204, $"Novo registro foi inserida no banco de dados!");
                 }
@@ -72,7 +73,9 @@ namespace AndreAirLineMongoDbPerson.Service
             var searchPerson = await _people.Find(person => person.Document == document).FirstOrDefaultAsync();
             if (searchPerson == null)
                 return new ApiResponse(404, $"Nenhum registro foi encontrado!");
-            _people.ReplaceOne(person => person.Document == document, PersonIn(personIn));
+            var newPerson = PersonIn(personIn);
+            await PostAndreAirLines.PostLog(new LogDTO(null, searchPerson.ToString(), newPerson.ToString(), "Create", DateTime.Now));
+            _people.ReplaceOne(person => person.Document == document, newPerson);
             return new ApiResponse(204, "Atualizacao de dado foi efetuada!");
         }
 

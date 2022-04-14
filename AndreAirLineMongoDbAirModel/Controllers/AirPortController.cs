@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AndreAirLineMongoDbAirPort.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ModelShare;
 using ModelShare.DTO;
+using ModelShare.Services;
 using ModelShare.Util;
 
 namespace AndreAirLineMongoDbAirModel.Controllers
@@ -12,7 +14,7 @@ namespace AndreAirLineMongoDbAirModel.Controllers
     [Authorize(Roles = "string")]
     [Route("api/[controller]")]
     [ApiController]
-    
+
     public class AirPortController : ControllerBase
     {
         private readonly AirPortService _airModelController;
@@ -44,7 +46,7 @@ namespace AndreAirLineMongoDbAirModel.Controllers
             {
                 return NotFound(new ApiResponse(400, $"Nao foi possivel inserir o aeroporto no banco de dados, por favor verifique se todos os campos estao preenchidos!"));
             }
-            
+
             return Ok(CreatedAtRoute("GetAirPort", new { iata = airport.Iata }, airport));
         }
 

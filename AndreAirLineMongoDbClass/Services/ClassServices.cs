@@ -1,7 +1,9 @@
 ﻿using ModelShare;
 using ModelShare.DTO;
+using ModelShare.Services;
 using ModelShare.Util;
 using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -37,6 +39,7 @@ namespace AndreAirLineMongoDbClass.Services
                 if (searchClassExists == null) {
                     Class result = new Class(newClassDTO.Description, newClassDTO.Value);
                     _classes.InsertOne(result);
+                    await PostAndreAirLines.PostLog(new LogDTO(null, null, result.ToString(), "Create", DateTime.Now));
                     return new ApiResponse(204, $"Nova classe inserida!");
                 }
                 else
@@ -59,7 +62,7 @@ namespace AndreAirLineMongoDbClass.Services
 
                 if (resultSearchClass == null)
                     return new ApiResponse(404, $"Nenhum dado encontrado!");
-
+                await PostAndreAirLines.PostLog(new LogDTO(null, resultSearchClass.ToString(), replaceClass.ToString(), "Update", DateTime.Now));
                 _classes.ReplaceOne(searchData => searchData.Id == replaceClass.Id, replaceClass);
                 return new ApiResponse(204, $"Dado atualizado com sucesso!");
             }

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ModelShare;
 using ModelShare.DTO;
+using ModelShare.Services;
 using ModelShare.Util;
 using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -56,6 +58,7 @@ namespace AndreAirLineMongoDbAirPlane.Service
                 {
                     var airPlane = new AirPlane(airPlaneDTO.Enrollment, airPlaneDTO.Name, airPlaneDTO.Capacity);
 
+                    await PostAndreAirLines.PostLog(new LogDTO(null, airplaneExists.ToString(), airPlane.ToString(), "Update", DateTime.Now));
                     _airPlane.ReplaceOne(airplane => airplane.Enrollment == airPlaneDTO.Enrollment, airPlane);
                 }
                 else
@@ -71,6 +74,8 @@ namespace AndreAirLineMongoDbAirPlane.Service
         public async Task Delete(string enrollment)
         {
             await _airPlane.DeleteOneAsync(airPlane => airPlane.Enrollment == enrollment);
+
+            await PostAndreAirLines.PostLog(new LogDTO(null, enrollment, "delete", "Update", DateTime.Now));
         }
     }
 }

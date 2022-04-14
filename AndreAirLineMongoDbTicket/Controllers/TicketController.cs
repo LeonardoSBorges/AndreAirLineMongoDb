@@ -37,12 +37,17 @@ namespace AndreAirLineMongoDbTicket.Controllers
             return ticket;
         }
 
-        ////[HttpPut]
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(string id)
-        //{
-        //    _ticketService.Delete(id);
-        //    return NoContent();
-        //}
+        [HttpPut]
+        public async Task<IActionResult> Put(Ticket ticket)
+        {
+            await _ticketService.Update(ticket);
+            return Ok();
+        }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(string id)
+        {
+            _ticketService.Delete(id);
+            return NoContent();
+        }
     }
 }

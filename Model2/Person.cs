@@ -31,6 +31,9 @@ namespace ModelShare
             Address = address;
         }
 
-
+        public override string ToString()
+        {
+            return $"{Document},{Name},{PhoneNumber}, {Date}, {Email}, {Address.ToString()}";
+        }
     }
 }

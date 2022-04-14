@@ -39,6 +39,7 @@ namespace AndreAirLineMongoDbFlight.Controllers
             {
                 return NotFound(new ApiResponse(resultInsertion, "Ocorreu um erro ao criar a solicitacao de voo, verifique se os campos estao preenchidos corretamente!"));
             }
+            
             return Ok(new ApiResponse(resultInsertion, "Voo inserido com sucesso!"));
         }
 

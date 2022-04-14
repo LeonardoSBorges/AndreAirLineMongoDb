@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AndreAirLineEntityFrameworkAirport.Data;
 using Models;
+using ModelShare.Services;
+using ModelShare.DTO;
 
 namespace AndreAirLineEntityFrameworkAirport.Controllers
 {
@@ -15,7 +17,7 @@ namespace AndreAirLineEntityFrameworkAirport.Controllers
     public class AirportsController : ControllerBase
     {
         private readonly AndreAirLineEntityFrameworkAirportContext _context;
-
+        private readonly PostAndreAirLines _postAtribute = new PostAndreAirLines();
         public AirportsController(AndreAirLineEntityFrameworkAirportContext context)
         {
             _context = context;
@@ -34,6 +36,7 @@ namespace AndreAirLineEntityFrameworkAirport.Controllers
         {
             var airport = await _context.Airport.FindAsync(id);
 
+
             if (airport == null)
             {
                 return NotFound();
@@ -47,11 +50,12 @@ namespace AndreAirLineEntityFrameworkAirport.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAirport(string id, Airport airport)
         {
+            
             if (id != airport.Iata)
             {
                 return BadRequest();
             }
-
+        
             _context.Entry(airport).State = EntityState.Modified;
 
             try
@@ -82,6 +86,7 @@ namespace AndreAirLineEntityFrameworkAirport.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+
             }
             catch (DbUpdateException)
             {
