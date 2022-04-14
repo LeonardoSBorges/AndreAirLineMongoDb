@@ -33,9 +33,12 @@ namespace AndreAirLineMongoDbAirPlane.Controllers
         }
 
         [HttpPost]
-        public async Task<AirPlane> Post(AirPlaneDTO airPlane)
+        public async Task<ActionResult> Post(AirPlaneDTO airPlane)
         {
-            return await _airPlane.Post(airPlane);
+            var result = await _airPlane.Post(airPlane);
+            if (result == 400)
+                return BadRequest();
+            return Ok();
              
         }
 

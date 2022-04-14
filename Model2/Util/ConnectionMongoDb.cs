@@ -11,5 +11,17 @@ namespace ModelShare.Util
         public string NameDataBase { get; set; }
         public string CollectionName { get; set; }
         public string ConnectionString { get; set; }
+
+        public ConnectionMongoDb()
+        {
+
+        }
+
+        public ConnectionMongoDb(string nameDataBase, string collectionName, string connectionString)
+        {
+            NameDataBase = nameDataBase;
+            CollectionName = collectionName;
+            ConnectionString = connectionString;
+        }
     }
 }

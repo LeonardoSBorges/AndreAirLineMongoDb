@@ -1,4 +1,5 @@
-﻿using ModelShare;
+﻿using Microsoft.AspNetCore.Mvc;
+using ModelShare;
 using ModelShare.DTO;
 using ModelShare.Util;
 using MongoDB.Driver;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AndreAirLineMongoDbAirPlane.Service
 {
-    public class AirPlaneService
+    public class AirPlaneService : IAirplaneService
     {
         private readonly IMongoCollection<AirPlane> _airPlane;
 
@@ -28,20 +29,23 @@ namespace AndreAirLineMongoDbAirPlane.Service
             return await _airPlane.Find(airplane => airplane.Enrollment == enrollment).FirstOrDefaultAsync();
         }
 
-        public async Task<AirPlane> Post(AirPlaneDTO airPlaneDTO)
+        public async Task<dynamic> Post(AirPlaneDTO airPlaneDTO)
         {
             AirPlane airPlane = null;
             try
             {
                 var searchAirPlane = await _airPlane.Find(airplane => airplane.Enrollment == airPlaneDTO.Enrollment).FirstOrDefaultAsync();
                 if (searchAirPlane == null)
+                {
                     _airPlane.InsertOne(new AirPlane(airPlaneDTO.Enrollment, airPlaneDTO.Name, airPlaneDTO.Capacity));
+                    return 200;
+                }
             }
             catch
             {
                 throw;
             }
-            return airPlane;
+            return 400;
         }
         public async Task Put(AirPlaneDTO airPlaneDTO)
         {
@@ -50,9 +54,9 @@ namespace AndreAirLineMongoDbAirPlane.Service
                 var airplaneExists = await _airPlane.Find(airplane => airplane.Enrollment == airPlaneDTO.Enrollment).FirstOrDefaultAsync();
                 if (airplaneExists != null)
                 {
-                    var airplane = new AirPlane(airPlaneDTO.Enrollment, airPlaneDTO.Name, airPlaneDTO.Capacity);
+                    var airPlane = new AirPlane(airPlaneDTO.Enrollment, airPlaneDTO.Name, airPlaneDTO.Capacity);
 
-                    _airPlane.ReplaceOne(airplane => airplane.Enrollment == airPlaneDTO.Enrollment, airplane);
+                    _airPlane.ReplaceOne(airplane => airplane.Enrollment == airPlaneDTO.Enrollment, airPlane);
                 }
                 else
                 {
@@ -64,9 +68,9 @@ namespace AndreAirLineMongoDbAirPlane.Service
                 throw;
             }
         }
-        public void Delete(string enrollment)
+        public async Task Delete(string enrollment)
         {
-            _airPlane.DeleteOneAsync(airPlane => airPlane.Enrollment == enrollment);
+            await _airPlane.DeleteOneAsync(airPlane => airPlane.Enrollment == enrollment);
         }
     }
 }

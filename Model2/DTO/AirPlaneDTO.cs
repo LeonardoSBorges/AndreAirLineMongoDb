@@ -11,5 +11,17 @@ namespace ModelShare.DTO
         public string Enrollment { get; set; }
         public string Name { get; set; }
         public int Capacity { get; set; }
+
+        public AirPlaneDTO()
+        {
+
+        }
+
+        public AirPlaneDTO(string enrollment, string name, int capacity)
+        {
+            Enrollment = enrollment;
+            Name = name;
+            Capacity = capacity;
+        }
     }
 }
